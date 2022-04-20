@@ -46,7 +46,7 @@ namespace SAT.UI.MVC.Controllers
 
             //MailMessage - What sends the email
             //Overload for MailMessage - FROM, TO, SUBJECT, BODY
-            MailMessage mm = new MailMessage("administrator@sample.com", "connorjdunn99@gmail.com", cvm.Subject, message);
+            MailMessage mm = new MailMessage("administrator@mattroberts-dev.com", "mroberts8035@gmail.com", cvm.Subject, message);
             //MailMessage mm = new MailMessage("administrator@evanwhittaker.com", "ewhittaker@centriq.com", cvm.Subject, message);
 
 
@@ -57,19 +57,19 @@ namespace SAT.UI.MVC.Controllers
             mm.ReplyToList.Add(cvm.Email);
 
             //SmtpClient - Info from the host that allows emails to be sent
-            SmtpClient client = new SmtpClient("mail.sample.com");
+            SmtpClient client = new SmtpClient("mail.mattroberts-dev.com");
             //SmtpClient client = new SmtpClient("mail.evanwhittaker.com");
 
 
             //Client Credentials
-            client.Credentials = new NetworkCredential("administrator@sample.com", "P@ssword");
+            client.Credentials = new NetworkCredential("admininstrator@mattroberts-dev.com", "Smarter@SP3");
             //client.Credentials = new NetworkCredential("administrator@evanwhittaker.com", "P@ssw0rd");
 
 
             //Port options - SMTP uses two ports, 25 and 8889. Test with both to determine
             //if your internet provider blocks/does not use one of these.
-            client.Port = 25;
-            //client.Port = 8889;
+            //client.Port = 25;
+            client.Port = 8889;
 
             //Try to send the email
             try
@@ -82,7 +82,7 @@ namespace SAT.UI.MVC.Controllers
 
                 ViewBag.CustomerMessage = $"We're sorry, but your request could not be completed at this time." +
                     $"Please try again later. If the issue persists, please contact your site administrator and provide" +
-                    $"the following info:<br /> {ex.StackTrace}";
+                    $"the following info:<br /> {ex.Message}";
                 return View(cvm);
             }
 
