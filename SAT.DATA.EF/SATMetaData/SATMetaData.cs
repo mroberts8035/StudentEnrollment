@@ -54,6 +54,17 @@ namespace SAT.DATA.EF//.SATMetaData
         public int SSID { get; set; }
     }
 
+    [MetadataType(typeof(StudentMetadata))]
+    public partial class Student
+    {
+        //Create a custom, read-only property for FullName and update the Display attribute
+        [Display(Name = "Student")]
+        public string FullName
+        {
+            get { return FirstName + " " + LastName; }
+        }
+    }
+
     public class StudentStatusMetadata
     {
         [Required(ErrorMessage = "*")]

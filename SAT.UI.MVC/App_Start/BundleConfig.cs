@@ -24,7 +24,22 @@ namespace SAT.UI.MVC
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/assets/vendor/animate.css/animate.min.css",
+                      "~/Content/assets/vendor/aos/aos.css",
+                      "~/Content/assets/vendor/bootstrap/css/bootstrap.min.css",
+                      "~/Content/assets/vendor/bootstrap-icons/bootstrap-icons.css",
+                      "~/Content/assets/vendor/boxicons/css/boxicons.min.css",
+                      "~/Content/assets/vendor/remixicon/remixicon.css",
+                      "~/Content/assets/vendor/swiper/swiper-bundle.min.css"
+                      ));
+
+            bundles.Add(new Bundle("~/Scripts/js").Include(
+                    "~/Content/assets/vendor/purecounter/purecounter.js",
+                    "~/Content/assets/vendor/aos/aos.js",
+                    "~/Content/assets/vendor/bootstrap/js/bootstrap.bundle.min.js",
+                    "~/Content/assets/vendor/swiper/swiper-bundle.min.js",
+                    "~/Content/assets/vendor/php-email-form/validate.js"
+                ));
         }
     }
 }
