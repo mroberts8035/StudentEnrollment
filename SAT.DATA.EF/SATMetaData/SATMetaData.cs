@@ -76,6 +76,65 @@ namespace SAT.DATA.EF//.SATMetaData
         public string SSDecription { get; set; }
     }
 
+
+    public class CoursMetadata
+    {
+        [Required(ErrorMessage = "*")]
+        [Display(Name = "Course Name")]
+        [StringLength(50)]
+        public string CourseName { get; set; }
+        [Required(ErrorMessage = "*")]
+        [Display(Name = "Description")]
+        public string CourseDescription { get; set; }
+        [Required(ErrorMessage = "*")]
+        [Display(Name = "Credit Hours")]
+        public byte CreditHours { get; set; }
+        [StringLength(250)]
+        public string Curriculum { get; set; }
+        [StringLength(500)]
+        public string Notes { get; set; }
+        [Required(ErrorMessage = "*")]
+        public bool IsActive { get; set; }
+    }
+
+    public class ScheduledClassMetadata
+    {
+        [Required(ErrorMessage = "*")]
+        public int CourseId { get; set; }
+        [Required(ErrorMessage = "*")]
+        public System.DateTime StartDate { get; set; }
+        [Required(ErrorMessage = "*")]
+        public System.DateTime EndDate { get; set; }
+        [Required(ErrorMessage = "*")]
+        [Display(Name = "Instructor")]
+        [StringLength(50)]
+        public string InstructorName { get; set; }
+        [Required(ErrorMessage = "*")]
+        [StringLength(50)]
+        public string Location { get; set; }
+        [Required(ErrorMessage = "*")]
+        public int SCSID { get; set; }
+    }
+
+    [MetadataType(typeof(ScheduledClassMetadata))]
+    public partial class ScheduledClass
+    {
+        //Create a custom, read-only property for FullName and update the Display attribute
+        [Display(Name = "Class Summary")]
+        public string Summary
+        {
+            get { return StartDate + " " + Cours.CourseName + " " + Location; }
+        }
+    }
+
+    public class ScheduledCalssStatusMetadata
+    {
+        [Required(ErrorMessage = "*")]
+        [Display(Name = "Course Name")]
+        [StringLength(50)]
+        public string SCSName { get; set; }
+    }
+
 }
 
     
