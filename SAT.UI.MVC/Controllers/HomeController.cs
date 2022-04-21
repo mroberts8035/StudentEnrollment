@@ -80,9 +80,11 @@ namespace SAT.UI.MVC.Controllers
             catch (System.Exception ex)
             {
 
-                ViewBag.CustomerMessage = $"We're sorry, but your request could not be completed at this time." +
-                    $"Please try again later. If the issue persists, please contact your site administrator and provide" +
-                    $"the following info:<br /> {ex.Message}";
+                ViewBag.CustomerMessage = "We're sorry but this feature is not currently implimented. It is a work in progress.";
+                    
+                    //$"We're sorry, but your request could not be completed at this time." +
+                    //$"Please try again later. If the issue persists, please contact your site administrator and provide" +
+                    //$"the following info:<br /> {ex.Message}";
                 return View(cvm);
             }
 
