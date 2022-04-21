@@ -187,6 +187,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Utilities\ImageUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\assets\css\style.css" />
@@ -205,6 +206,7 @@
     <Content Include="Content\assets\img\events-2.jpg" />
     <Content Include="Content\assets\img\favicon.png" />
     <Content Include="Content\assets\img\hero-bg.jpg" />
+    <Content Include="Content\assets\img\StudentImages\NoImage.png" />
     <Content Include="Content\assets\img\testimonials\testimonials-1.jpg" />
     <Content Include="Content\assets\img\testimonials\testimonials-2.jpg" />
     <Content Include="Content\assets\img\testimonials\testimonials-3.jpg" />
@@ -213,6 +215,7 @@
     <Content Include="Content\assets\img\trainers\trainer-1.jpg" />
     <Content Include="Content\assets\img\trainers\trainer-2.jpg" />
     <Content Include="Content\assets\img\trainers\trainer-3.jpg" />
+    <Content Include="Content\assets\img\StudentImages\t_NoImage.png" />
     <Content Include="Content\assets\js\main.js" />
     <Content Include="Content\assets\vendor\animate.css\animate.compat.css" />
     <Content Include="Content\assets\vendor\animate.css\animate.css" />
@@ -738,7 +741,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Utilities\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

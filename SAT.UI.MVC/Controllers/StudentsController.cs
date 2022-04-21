@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using MVC3.UI.MVC.Utilities;
 using SAT.DATA.EF;
 
 namespace SAT.UI.MVC.Controllers
@@ -52,10 +54,49 @@ namespace SAT.UI.MVC.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "StudentId,FirstName,LastName,Major,Address,City,State,ZipCode,Phone,Email,PhotoUrl,SSID")] Student student)
+        public ActionResult Create([Bind(Include = "StudentId,FirstName,LastName,Major,Address,City,State,ZipCode,Phone,Email,PhotoUrl,SSID")] Student student, HttpPostedFileBase photoUrl)
         {
             if (ModelState.IsValid)
             {
+
+                #region File Upload
+
+                string file = "NoImage.png";
+
+                if (photoUrl != null)
+                {
+                    file = photoUrl.FileName;
+
+                    string ext = file.Substring(file.LastIndexOf('.'));
+
+                    string[] goodExts = { ".jpeg", ".jpg", ".png", ".gif" };
+
+                    if (goodExts.Contains(ext.ToLower()) && photoUrl.ContentLength <= 4194304)
+                    {
+                        file = Guid.NewGuid() + ext;
+
+                        #region Resizing Image
+
+                        string savePath = Server.MapPath("~/Content/assets/img/StudentImages/");
+
+                        Image convertedImage = Image.FromStream(photoUrl.InputStream);
+
+                        int maxImageSize = 500;
+
+                        int maxThumbSize = 100;
+
+                        ImageUtility.ResizeImage(savePath, file, convertedImage, maxImageSize, maxThumbSize);
+
+                        #endregion
+                    }
+
+                    //No magger what, update the PhotoUrl with the value of the file variable
+                    student.PhotoUrl = file;
+
+                }
+
+                #endregion
+
                 db.Students.Add(student);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -88,10 +129,52 @@ namespace SAT.UI.MVC.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "StudentId,FirstName,LastName,Major,Address,City,State,ZipCode,Phone,Email,PhotoUrl,SSID")] Student student)
+        public ActionResult Edit([Bind(Include = "StudentId,FirstName,LastName,Major,Address,City,State,ZipCode,Phone,Email,PhotoUrl,SSID")] Student student, HttpPostedFileBase photoUrl)
         {
             if (ModelState.IsValid)
             {
+                #region File Upload
+                
+                string file = "NoImage.png";
+
+                if (photoUrl != null)
+                {
+                    file = photoUrl.FileName;
+
+                    string ext = file.Substring(file.LastIndexOf('.'));
+
+                    string[] goodExts = { ".jpeg", ".jpg", ".png", ".gif" };
+
+                    if (goodExts.Contains(ext.ToLower()) && photoUrl.ContentLength <= 4194304)
+                    {
+                        file = Guid.NewGuid() + ext;
+
+                        #region Resize Image
+
+                        string savePath = Server.MapPath("~/Content/assets/img/StudentImages/");
+
+                        Image convertedImage = Image.FromStream(photoUrl.InputStream);
+
+                        int maxImageSize = 500;
+
+                        int maxThumbSize = 100;
+
+                        ImageUtility.ResizeImage(savePath, file, convertedImage, maxImageSize, maxThumbSize);
+
+                        #endregion
+
+                        if (student.PhotoUrl != null && student.PhotoUrl != "NoImage.png")
+                        {
+                            string path = Server.MapPath("~/Content/assets/img/StudentImages/");
+                            ImageUtility.Delete(path, student.PhotoUrl);
+
+                        }
+                        student.PhotoUrl = file;
+                    }
+                }
+
+                #endregion
+
                 db.Entry(student).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
